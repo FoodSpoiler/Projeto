@@ -1,0 +1,13 @@
+
+    /* On small screens, the nav menu spans the full width of the screen. Leave a space for it. */
+    .body-content {
+        padding-top: 50px;
+    }
+
+
+    .container-fluid{
+        background-color: #F5F5F5;
+        height: 100vh;
+    }   
+
+   

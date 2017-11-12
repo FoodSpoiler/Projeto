@@ -1,0 +1,22 @@
+<h1>Novo Item</h1>
+<p>
+  <!--Para saber certinho oque esta sendo enviado-->
+</p>
+<form (ngSubmit)="submit()"> 
+  <!--TextBox-->
+  <div class="form-group">
+    <label for="Nome">Nome</label>
+    <input id="itemNome" type="text" class="form-control" [(ngModel)]="item.nome" name="Nome">
+  </div>
+  <div class="form-group">
+    <label for="Preco">Preço</label>
+    <input id="itemPreco" type="text" class="form-control" [(ngModel)]="item.preco" name="Preco">
+  </div>
+  <div class="form-group">
+    <label for="Descricao">Descrição</label>
+    <input id="itemDescricao" type="text" class="form-control" [(ngModel)]="item.descricao" name="Descricao">
+  </div>
+   <!--Button-->
+  <button class="btn btn-primary">Salvar</button>
+  <button *ngIf="item.itemId" class="btn btn-danger" type="button" (click)="delete()">Delete</button>
+</form>
