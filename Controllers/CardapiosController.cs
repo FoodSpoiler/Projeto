@@ -52,12 +52,74 @@ namespace AgilFood.Controllers
             
         }
 
-        
+        [HttpPut("{id}/{fornId}")]
+        [Authorize(Policies.RequireAdminRole)]
+        public async Task<IActionResult> UpdateCardapio(int id, int fornId, [FromBody] CardapioResource cardapioResource)
+        {
+            
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-        
+            //primeiro vamos achar o cardapio no banco 
+            var cardapio = await _repository.GetCard(id, fornId);
+
+            //Se nao existir esse objeto no banco
+            if (cardapio == null)
+            {
+                return NotFound();
+            }
+
+            Mapper.Map<CardapioResource, Cardapio>(cardapioResource, cardapio);
+            await _unitOfWork.CompleteAsync();
+
+            cardapio = await _repository.GetCard(id, fornId);
+            var result = _mapper.Map<Cardapio, CardapioResource>(cardapio);
+
+            return Ok(result);
+        }
+
+        [HttpGet("{id}/{fornId}")]
+        public async Task<IActionResult> GetCardapio(int id, int fornId)
+        {
+            var cardapio = await _repository.GetCard(id, fornId);
+
+            if (cardapio == null)
+                return NotFound();
+
+            var cardapioResource = _mapper.Map<Cardapio, CardapioResource>(cardapio);
+
+            return Ok(cardapioResource);
+        }
+
+        [HttpDelete("{id}")]
+        [Authorize(Policies.RequireAdminRole)]
+        public async Task<IActionResult> DeleteCardapio(int id)
+        {
+            //primeiro vamos achar o cardapio no banco pelo Id
+            var cardapio = await _repository.GetCardapio(id, includeRelated: false);
+
+            //Se nao existir esse objeto no banco
+            if (cardapio == null)
+            {
+                return NotFound();
+            }
+
+            _repository.Remove(cardapio);
+            await _unitOfWork.CompleteAsync();
+            
+            return Ok(id);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<List<CardapioResource>> GetCardapios(int id)
+        {
+            var cardapios = await _repository.GetCardapios(id);
+
+            return Mapper.Map<List<Cardapio>, List<CardapioResource>>(cardapios);
+        }
+
+      
     }
 }
-
-
-
-
