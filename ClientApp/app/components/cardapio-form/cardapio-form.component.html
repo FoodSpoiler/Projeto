@@ -1,4 +1,4 @@
-<h1>Novo Cardapio</h1>
+<h1>Cardapio</h1>
 <p>
   <!--Para saber certinho oque esta sendo enviado-->
 </p>
@@ -12,7 +12,7 @@
   </div>
 
   <!--Button-->
-  <button class="btn btn-primary">Salvar</button>
+  <button class="btn btn-primary">Salvar</button> 
+  <button *ngIf="cardapio.cardapioId" class="btn btn-danger" type="button" (click)="delete()">Delete</button>
 </form>
-
 

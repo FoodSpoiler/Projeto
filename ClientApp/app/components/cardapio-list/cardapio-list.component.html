@@ -1,0 +1,65 @@
+
+  <div class="card col-md-7">
+    <h2>Cardapios</h2>
+    <p  *ngIf="auth.isInRole('Admin')">
+      <a [routerLink]="['/cardapios/novo/', idFornecedor]" class="btn btn-primary">Adicionar Cardapio</a>
+    </p>
+    <table class="table">
+      <ng-container *ngFor="let c of cardapios">
+        <tr>
+          <td>
+            <h3>{{ c.nome }}</h3>
+            <p  *ngIf="auth.isInRole('Admin')">
+              <a [routerLink]="['/itens/novo/', c.cardapioId, idFornecedor]" class="btn btn-primary">Adicionar Item</a>
+              <a [routerLink]="['/cardapios/edit/', c.cardapioId, idFornecedor]">Editar Cardapio</a>
+            </p>
+          </td>
+        </tr>
+        <tr *ngFor="let i of c.itens">
+          <td>{{ i.nome }}</td>
+          <td>{{ i.preco }}</td>
+          <td>{{ i.descricao }}</td>
+          <td  *ngIf="auth.isInRole('Admin')">
+            <a [routerLink]="['/itens/edit/', i.itemId, c.fornecedorId]">Editar</a>
+          </td>
+          <td>
+            <button class="btn btn-danger" type="button" (click)="addCarrinho(i, i.itemId)">Addicionar</button>
+          </td>
+        </tr>
+      </ng-container>
+      <!-- <app-item-form [idForn]="idFornecedor"></app-item-form> -->
+    </table>
+  </div>
+
+  <div id="carrinho" class="card col-md-4">
+    <div>
+      <h2>Carrinho
+        <span> 
+          <button class="btn btn-danger" type="button" (click)="enviarPedido()">Enviar Pedido</button>
+        </span>
+      </h2>
+    </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Produto</th>
+          <th>Quantidade</th>
+          <th>Preco</th>
+          <th></th>
+        </tr>
+      </thead>  
+      <tbody>
+        <tr *ngFor="let i of getItens()">
+          <td>{{ i.item.nome }}</td>
+          <td>{{ i.quant }}</td>
+          <td>{{ i.item.preco  }}</td>        
+          <td>
+            <button class="btn btn-danger" type="button" (click)="deleteCarrinho(i.item)">Excluir</button>
+          </td>      
+        </tr>
+      </tbody>
+    </table>
+    <div>
+      <h4>Total: R$ <span>{{ getTotalGeral() }}</span></h4>
+    </div>
+  </div>

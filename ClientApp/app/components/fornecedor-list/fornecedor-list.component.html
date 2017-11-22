@@ -1,0 +1,36 @@
+<h2>Fornecedores</h2>
+<p *ngIf="auth.isInRole('Admin')"> <!--Agora so aparece o botao se o cara for Admin, se eu tivesse colocado *ngIf="auth.authenticated(), bastaria o cara ser autenticado-->
+  <a [routerLink]="['/fornecedores/novo']" class="btn btn-primary">Novo Fornecedor</a>
+</p>
+<!--Montando a tabela-->
+<table class="table">
+  <thead>
+    <tr>
+      <th>Foto</th>
+      <th>Nome</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let f of queryResult.items">
+      <td >
+
+        <!-- preciso melhorar isso -->
+        <div>
+          <img width="100" src="{{f.foto}}" class="img-thumbnail">
+        </div>
+
+      </td>
+      <td>{{ f.nome }}</td>
+      <td>
+        <a [routerLink]="['/cardapios/', f.fornecedorId]">Cardapio</a>
+      </td>
+      <td *ngIf="auth.isInRole('Admin')">
+        <a [routerLink]="['/fornecedores/edit/', f.fornecedorId]">Editar</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<!--Paging-->
+<pagination [total-items]="queryResult.totalItems" [page-size]="query.pageSize" (page-changed)="onPageChange($event)"></pagination>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using AgilFood.Controllers.Resource;
@@ -9,6 +10,7 @@ using AgilFood.Core.Models;
 using AgilFood.Persistence;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -66,6 +68,27 @@ namespace AgilFood.Controllers
             return Ok(fornecedorResource);
         }
 
+
+        [HttpPost("{id}")] //agora apenas Admins podem criar new vehicles, se caso eu tirasse o Policies.RequireAdminRole, qualquer pessoa logada poderia fazer as operacoes
+        public async Task<IActionResult> UploadFoto(int id, IFormFile file)
+        {
+            //primeiro vamos achar o fornecedor no banco 
+            var fornecedor = await _repository.GetFornecedor(id);
+
+            //Se nao existir esse objeto no banco
+            if (fornecedor == null)
+            {
+                return NotFound();
+            }
+            var image = new BinaryReader(file.OpenReadStream());
+            fornecedor.Foto = Convert.ToBase64String(image.ReadBytes((int)file.Length));
+
+            await _unitOfWork.CompleteAsync();
+
+            return Ok(fornecedor.FornecedorId);
+        }
+
+
         [HttpPut("{id}")]
         [Authorize(Policies.RequireAdminRole)]
         public async Task<IActionResult> UpdateFornecedor(int id, [FromBody] FornecedorResource fornecedorResource)
@@ -110,4 +133,3 @@ namespace AgilFood.Controllers
         }
     }
 }
-

@@ -9,7 +9,7 @@ import { Auth } from "../../services/auth.service";
 })
 export class FornecedorListComponent implements OnInit {
 
-  private readonly PAGE_SIZE = 3; 
+  private readonly PAGE_SIZE = 5; 
 
   queryResult: any = {};
   query: any = {
@@ -38,4 +38,3 @@ export class FornecedorListComponent implements OnInit {
     this.populateFornecedores();
   }
 }
-
