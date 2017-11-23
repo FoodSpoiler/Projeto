@@ -4,6 +4,7 @@ import { Auth } from './../../services/auth.service';
 import { CardapioService } from './../../services/cardapio.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
+import { ToastyService } from 'ng2-toasty';
 
 
 @Component({
@@ -18,7 +19,7 @@ export class CardapioListComponent implements OnInit {
   idCardapio;
   idItem;
 
-  itens: ItemCar[] = [];
+  itens: Item[] = [];
   item: Item = {
     itemId: 0,
     descricao: '',
@@ -26,14 +27,21 @@ export class CardapioListComponent implements OnInit {
     codigo: '',
     preco: 0,
   };
-  pedido: SavePedido;
+
+  pedido: SavePedido = {
+    pedidoId: 0,
+    nomeUsuario: '',
+    emailUsuario: '',
+    itens: [],
+  };
   
   qtd = 0;
   profile: any;
 
   constructor(private cardapioService: CardapioService,
-    private router: ActivatedRoute,
-    private auth: Auth) {
+              private toastyService: ToastyService,
+              private router: ActivatedRoute,
+              private auth: Auth) {
 
     router.params.subscribe(param => this.idFornecedor = param['id'])
 
@@ -79,25 +87,35 @@ export class CardapioListComponent implements OnInit {
     console.log(product.quantidade);
     //this.qtd = 1;
     this.itens.push(product);
+    this.pedido.itens.push(productId);
+
   }
 
   deleteCarrinho(product) {
     console.log(product);
     var index = this.itens.indexOf(product);
     this.itens.splice(index, 1);
+    this.pedido.itens.splice(index, 1);
   }
 
   enviarPedido() {
-
-    this.pedido = Object.assign({}, this.pedido, {
-      itens: this.itens.map(a => a.itemId),
-      emailUsuario: this.profile.email,
-      nomeUsuario: this.profile.name
-    })
-
-    this.cardapioService.postPedido(this.pedido)
-      .subscribe(x => console.log(x));
-  }
+    
+        this.pedido.emailUsuario = this.profile.email;
+        this.pedido.nomeUsuario = this.profile.name;
+        console.log(this.pedido);
+    
+        this.cardapioService.postPedido(this.pedido)
+        .subscribe(x => {
+          this.toastyService.success({
+            title: 'Success',
+            msg: 'Pedido Realizado com Sucesso.',
+            theme: 'bootstrap',
+            showClose: true,
+            timeout: 5000
+          })
+          console.log(x);
+        });
+      }
 
   getTotalGeral() {
     var total = 0;

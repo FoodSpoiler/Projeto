@@ -17,7 +17,7 @@
         </tr>
         <tr *ngFor="let i of c.itens">
           <td>{{ i.nome }}</td>
-          <td>{{ i.preco }}</td>
+          <td>{{ (i.preco | currency :'BRL': true)}}</td>
           <td>{{ i.descricao }}</td>
           <td  *ngIf="auth.isInRole('Admin')">
             <a [routerLink]="['/itens/edit/', i.itemId, c.fornecedorId]">Editar</a>
@@ -34,7 +34,7 @@
   <div id="carrinho" class="card col-md-4">
     <div>
       <h2>Carrinho
-        <span> 
+        <span *ngIf="this.itens.length" > 
           <button class="btn btn-danger" type="button" (click)="enviarPedido()">Enviar Pedido</button>
         </span>
       </h2>
@@ -52,7 +52,7 @@
         <tr *ngFor="let i of getItens()">
           <td>{{ i.item.nome }}</td>
           <td>{{ i.quant }}</td>
-          <td>{{ i.item.preco  }}</td>        
+          <td>{{ (i.item.preco | currency :'BRL': true) }}</td>        
           <td>
             <button class="btn btn-danger" type="button" (click)="deleteCarrinho(i.item)">Excluir</button>
           </td>      
@@ -60,6 +60,6 @@
       </tbody>
     </table>
     <div>
-      <h4>Total: R$ <span>{{ getTotalGeral() }}</span></h4>
+      <h4>Total: <span>{{( getTotalGeral()| currency :'BRL': true)}}</span></h4>
     </div>
   </div>

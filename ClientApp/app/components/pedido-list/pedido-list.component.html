@@ -1,0 +1,35 @@
+<div>
+  <h2>Olá {{ profile.name }}, </h2>
+  <br>
+  <br>
+</div>
+<div>
+  <h2>Minhas Informações</h2>
+  <p>E-mail: {{ profile.email }}</p>
+  <br>
+  <br>
+</div>
+<div>
+  <h2>Meus Pedidos</h2>
+  <table class="table">
+    <ng-container *ngFor="let p of pedidos">
+      <tr>
+        <td>
+          <h3>Data: {{ p.dataPedido | date: 'dd/MM/yyyy'}}</h3>
+        </td>
+      </tr>
+      <tr *ngFor="let i of p.itens">
+        <td>{{ i.nome }}</td>
+        <td>{{( i.preco | currency :'BRL': true) }}</td>
+      </tr>
+      <tr>
+        <td><strong>Total: </strong></td>
+        <td><strong>{{ getTotal(p.pedidoId) | currency :'BRL': true }}</strong></td>
+      </tr>
+      <p></p>
+    </ng-container>
+</table>
+<div>
+  <h2><strong>Total Geral: </strong><span><strong>{{ getTotalGeral() | currency :'BRL': true }}</strong></span></h2>
+</div>
+</div>

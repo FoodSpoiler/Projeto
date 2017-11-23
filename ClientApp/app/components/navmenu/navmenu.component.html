@@ -12,6 +12,21 @@
         <div class='clearfix'></div>
         <div class='navbar-collapse collapse'>
             <ul class='nav navbar-nav'>
+                <!-- <li [routerLinkActive]="['link-active']">
+                    <a [routerLink]="['/home']">
+                        <span class='glyphicon glyphicon-home'></span> Home
+                    </a>
+                </li> -->
+                <!-- <li [routerLinkActive]="['link-active']">
+                    <a [routerLink]="['/cardapios/novo']">
+                        <span class='glyphicon glyphicon-plus'></span> Novo Cardapio
+                    </a>
+                </li> -->
+                 <!-- <li [routerLinkActive]="['link-active']">
+                    <a [routerLink]="['/itens/novo']">
+                        <span class='glyphicon glyphicon-plus'></span> Novo Item
+                    </a>
+                </li> -->
                  <li [routerLinkActive]="['link-active']">
                    <a href="https://agilfood.auth0.com/login?client=2cWXmseW19yZ246Wbkh51XASarvolj2g" *ngIf="!auth.authenticated()">
                         <span class='glyphicon glyphicon-user'></span> Login
@@ -30,13 +45,27 @@
                         <span class='glyphicon glyphicon-home'></span> Fornecedores
                     </a>
                 </li>
+                <li [routerLinkActive]="['link-active']">
+                    <a [routerLink]="['/pedidos']">
+                        <span class='glyphicon glyphicon-folder-close'></span> Pedidos
+                    </a>
+                </li>
                 <li [routerLinkActive]="['link-active']" *ngIf="auth.isInRole('Admin')"> <!--so rendenriza se o user estiver admin nos roles-->
                     <a [routerLink]="['/admin']">
                         <span class='glyphicon glyphicon-education'></span> Admin
                     </a>
                 </li>  
+                <!-- <li [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{exact: true}">
+                    <a [routerLink]="['/cardapios']">
+                        <span class='glyphicon glyphicon-plus'></span> Cardapios
+                    </a>
+                </li>  -->
+                 <!-- <li [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{exact: true}">
+                    <a [routerLink]="['/itens']">
+                        <span class='glyphicon glyphicon-plus'></span> Itens
+                    </a>
+                </li>  -->
             </ul>
         </div>
     </div>
 </div>
-

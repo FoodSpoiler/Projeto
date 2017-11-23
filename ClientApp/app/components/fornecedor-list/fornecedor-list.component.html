@@ -8,23 +8,21 @@
     <tr>
       <th>Foto</th>
       <th>Nome</th>
-      <th></th>
+      <th>Endereço</th>
       <th></th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let f of queryResult.items">
       <td >
-
-        <!-- preciso melhorar isso -->
-        <div>
-          <img width="100" src="{{f.foto}}" class="img-thumbnail">
+        <div class="hover">
+          <img [routerLink]="['/cardapios/', f.fornecedorId]" width="100" src="{{f.foto}}" class="img-thumbnail">
         </div>
-
       </td>
       <td>{{ f.nome }}</td>
       <td>
-        <a [routerLink]="['/cardapios/', f.fornecedorId]">Cardapio</a>
+          <p>Rua: {{ f.endereco.rua }}</p>
+          <p>Bairro: {{ f.endereco.bairro }}</p>
       </td>
       <td *ngIf="auth.isInRole('Admin')">
         <a [routerLink]="['/fornecedores/edit/', f.fornecedorId]">Editar</a>

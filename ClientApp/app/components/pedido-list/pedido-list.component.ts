@@ -1,27 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-import { Pedido } from '../../models/fornecedor';
-import { PedidoService } from '../../services/pedido.service';
+import { Pedido } from "../../models/fornecedor";
+import { PedidoService } from "../../services/pedido.service";
 
 @Component({
-  selector: 'app-admin',
-  templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.css']
+  selector: 'app-pedido-list',
+  templateUrl: './pedido-list.component.html',
+  styleUrls: ['./pedido-list.component.css']
 })
-export class AdminComponent implements OnInit {
+export class PedidoListComponent implements OnInit {
 
+  //properties
   profile: any;
   pedidos: Pedido[] = [];
 
-  constructor(private pedidoService: PedidoService) {
-
+  constructor(private pedidoService: PedidoService) { 
     //Para pegar as coisas do profile
     this.profile = JSON.parse(localStorage.getItem('profile'));
   }
 
   ngOnInit() {
 
-    this.pedidoService.getPedidos()
-    .subscribe(result => this.pedidos = result);
+    this.populatePedidos();
 
   }
 
@@ -54,4 +53,12 @@ export class AdminComponent implements OnInit {
     return total;
   }
 
+  private populatePedidos(){
+    this.pedidoService.getPedidosByName(this.profile.email)
+    .subscribe(result => this.pedidos = result);
+  }
+
 }
+
+
+

@@ -18,7 +18,7 @@ export class ItemService {
   }
 
   getItens(cardId) {
-    return this.http.get('/api/itens/' + cardId)
+    return this.http.get('/api/itens/' + cardId) 
       .map(res => res.json())
   }
 
@@ -38,4 +38,3 @@ export class ItemService {
   }
 
 }
-

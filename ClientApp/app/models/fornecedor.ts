@@ -23,16 +23,27 @@ export interface Item {
     descricao: string;
     codigo: string;
     preco: number;
-}
+  }
   
-export interface ItemCar {
+  export interface ItemCar {
     itemId: number;
-    // quantidade: number;
     nome: string;
     descricao: string;
     codigo: string;
     preco: number;
-}
+  }
 
+  export interface SavePedido {
+    pedidoId: number; 
+    nomeUsuario: string;
+    emailUsuario: string;
+    itens: number[];
+  }
   
-  
+  export interface Pedido {
+    pedidoId: number; 
+    nomeUsuario: string;
+    emailUsuario: string;
+    itens: Item[];
+    dataPedido: string;
+  }

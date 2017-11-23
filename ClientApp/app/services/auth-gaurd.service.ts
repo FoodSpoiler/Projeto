@@ -16,4 +16,3 @@ export class AuthGuard implements CanActivate { //canActivate é o bloqueia as r
     return false;
   }
 }
-

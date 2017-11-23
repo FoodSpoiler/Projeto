@@ -1,4 +1,4 @@
-
+import { PedidoService } from './services/pedido.service';
 import { AdminComponent } from './components/admin/admin.component';
 import { ItemService } from './services/item.service';
 import { CardapioService } from './services/cardapio.service';
@@ -21,6 +21,7 @@ import { CardapioFormComponent } from "./components/cardapio-form/cardapio-form.
 import { FornecedorFormComponent } from './components/fornecedor-form/fornecedor-form.component';
 import { ItemFormComponent } from "./components/item-form/item-form.component";
 import { FornecedorListComponent } from './components/fornecedor-list/fornecedor-list.component';
+import { CardapioListComponent } from "./components/cardapio-list/cardapio-list.component";
 import { ItemListComponent } from './components/item-list/item-list.component';
 import { PaginationComponent } from "./components/shared/pagination.component";
 import { PhotoService } from "./services/photo.service";
@@ -29,6 +30,7 @@ import { Auth } from "./services/auth.service";
 import { AuthGuard } from "./services/auth-gaurd.service";
 import { AUTH_PROVIDERS } from "angular2-jwt/angular2-jwt";
 import { AdminAuthGuard } from "./services/admin-auth-guard.service";
+import { PedidoListComponent } from './components/pedido-list/pedido-list.component';
 import { AppErrorHandler } from './app.error-handler';
 
 //para pegar os logs de erro do Sentry
@@ -47,13 +49,15 @@ Raven.config('https://b0d3ef84952f44c9b73b8161359b5167@sentry.io/237084').instal
         FornecedorFormComponent,
         ItemFormComponent,
         FornecedorListComponent,
+        CardapioListComponent,
         ItemListComponent,
         PaginationComponent,
+        PedidoListComponent
     ],
     imports: [
         UniversalModule, // Must be first import. This automatically imports BrowserModule, HttpModule, and JsonpModule too.
         FormsModule,
-        ToastyModule.forRoot(), 
+        ToastyModule.forRoot(),
         BrowserModule,
         RouterModule.forRoot([
             { path: '', redirectTo: 'fornecedores', pathMatch: 'full' },
@@ -61,12 +65,16 @@ Raven.config('https://b0d3ef84952f44c9b73b8161359b5167@sentry.io/237084').instal
             { path: 'fornecedores/novo', component: FornecedorFormComponent, canActivate: [ AdminAuthGuard ] },
             { path: 'fornecedores/edit/:id', component: FornecedorFormComponent, canActivate: [ AdminAuthGuard ] },
             { path: 'itens/edit/:itemId/:fornId', component: ItemFormComponent },
+            { path: 'cardapios/edit/:cardapioId/:fornId', component: CardapioFormComponent },
             { path: 'cardapios/novo/:id', component: CardapioFormComponent, canActivate: [ AdminAuthGuard ] },
             { path: 'itens/novo/:id/:fornId', component: ItemFormComponent, canActivate: [ AdminAuthGuard ] },         
             { path: 'fornecedores', component: FornecedorListComponent },
             { path: 'fornecedores/:id', component: FornecedorFormComponent },
             { path: 'itens', component: ItemListComponent },
+            { path: 'cardapios', component: CardapioListComponent },
+            { path: 'cardapios/:id', component: CardapioListComponent }, //para trazer so os cardapios referentes ao id do fornecedor
             { path: 'itens/:id', component: ItemListComponent },
+            { path: 'pedidos', component: PedidoListComponent },
             //{ path: 'home', component: HomeComponent },
             { path: 'counter', component: CounterComponent },
             { path: 'fetch-data', component: FetchDataComponent },
@@ -83,9 +91,9 @@ Raven.config('https://b0d3ef84952f44c9b73b8161359b5167@sentry.io/237084').instal
       CardapioService,
       ItemService,
       PhotoService,
+      PedidoService
       //ProgressService DEPOIS DEVO COLOCAR ELE NO COMPONENT Q FAZ O UP DE FOTOS PRA MANDAR LEC150
     ]
 })
 export class AppModule {
 }
-

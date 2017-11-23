@@ -7,7 +7,7 @@ import { AuthHttp } from "angular2-jwt/angular2-jwt";
 @Injectable()
 export class FornecedorService {
 
-  constructor(private http: Http,
+  constructor(public http: Http,
               private route:Router,
               private authHttp: AuthHttp      //so pra mandar o token junto com a requisição
   ) { }
@@ -38,6 +38,11 @@ export class FornecedorService {
     return this.http.get('/api/fornecedores/' + id)
       .map(res => res.json());
   }
+  
+  saveImage() {
+    return this.http.get('/api/fornecedores/2')
+      .map(res => res.json());
+  }
 
   //Filtiring
   toQueryString(obj){
@@ -53,4 +58,3 @@ export class FornecedorService {
     return parts.join('&');
   }
 }
-
