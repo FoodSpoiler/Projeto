@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AgilFood.Core.Models
 {
@@ -10,8 +11,9 @@ namespace AgilFood.Core.Models
         public string Descricao { get; set; }
         public double Preco { get; set; }
 
+        public ICollection<PedidoItem> Itens { get; set; }
+
         public int CardapioId { get; set; }
         public Cardapio Cardapio { get; set; }
     }
 }
-

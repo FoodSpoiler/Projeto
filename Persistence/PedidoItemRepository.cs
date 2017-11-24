@@ -2,22 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AgilFood.Core;
+using AgilFood.Core.Models;
 
 namespace AgilFood.Persistence
 {
-    public class UnitOfWork : IUnitOfWork
+    public class PedidoItemRepository
     {
         private readonly AgilFoodDbContext _context;
 
-        public UnitOfWork(AgilFoodDbContext context)
+        public PedidoItemRepository(AgilFoodDbContext context)
         {
             _context = context;
         }
 
-        public async Task CompleteAsync()
+        public void Add(PedidoItem itemPed)
         {
-            await _context.SaveChangesAsync();
+            _context.PedidoItems.Add(itemPed);
         }
     }
 }

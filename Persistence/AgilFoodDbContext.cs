@@ -13,8 +13,9 @@ namespace AgilFood.Persistence
         public DbSet<Fornecedor> Fornecedores { get; set; }
         public DbSet<Cardapio> Cardapios { get; set; }
         public DbSet<Item> Items { get; set; }
+        public DbSet<PedidoItem> PedidoItems { get; set; }
         public DbSet<Photo> Photos { get; set; }
-
+        public DbSet<Pedido> Pedidos { get; set; }
 
 
         public AgilFoodDbContext(DbContextOptions<AgilFoodDbContext> options) 
@@ -23,6 +24,13 @@ namespace AgilFood.Persistence
 
         }
 
-        
+        //Para poder usar many-to-many relationShip
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+
+            modelBuilder.Entity<PedidoItem>().HasKey(pi =>
+                new {pi.PedidoItemId, pi.ItemId, pi.PedidoId }); //adicionei aqui o PedidoItemId p/ nao ter problema de nao estar autoencrementando 
+
+        }
     }
 }

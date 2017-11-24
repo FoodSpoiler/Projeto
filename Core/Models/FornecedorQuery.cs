@@ -14,4 +14,3 @@ namespace AgilFood.Core.Models
         public int PageSize { get; set; }
     }
 }
-

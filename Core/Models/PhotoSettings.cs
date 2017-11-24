@@ -18,4 +18,3 @@ namespace AgilFood.Core.models
         }
     }
 }
-

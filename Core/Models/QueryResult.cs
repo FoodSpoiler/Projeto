@@ -11,4 +11,3 @@ namespace AgilFood.Core.models
         public IEnumerable<T> Items { get; set; }
     }
 }
-

@@ -16,4 +16,3 @@ namespace AgilFood.Core.models
         public string FileName { get; set; }
     }
 }
-

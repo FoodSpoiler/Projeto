@@ -20,7 +20,7 @@ namespace AgilFood.Persistence
     public async Task<IEnumerable<Photo>> GetPhotos(int fornecedorId)
     {
       return await context.Photos
-                       .Where(p => p.FornecedorId == fornecedorId) 
+                       .Where(p => p.FornecedorId == fornecedorId)
                     .ToListAsync();
     }
   }

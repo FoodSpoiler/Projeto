@@ -20,15 +20,13 @@ namespace AgilFood.Core.Models
 
         public ICollection<Servico> Servicos { get; set; }
         public ICollection<Cardapio> Cardapios { get; set; }
-        public ICollection<Photo> Photos { get; set; }
+        public string Foto { get; set; }
         
 
         public Fornecedor()
         {
             Servicos = new Collection<Servico>();
             Cardapios = new Collection<Cardapio>();
-            Photos = new Collection<Photo>();
         }
     }
 }
-

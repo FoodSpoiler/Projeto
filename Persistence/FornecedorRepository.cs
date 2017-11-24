@@ -14,7 +14,7 @@ namespace AgilFood.Persistence
     {
         private readonly AgilFoodDbContext _context;
 
-        public FornecedorRepository(AgilFoodDbContext context) 
+        public FornecedorRepository(AgilFoodDbContext context)
         {
             _context = context;
         }
@@ -41,7 +41,7 @@ namespace AgilFood.Persistence
             var result = new QueryResult<Fornecedor>();
 
             var query =  _context.Fornecedores
-                               .Include(f => f.Photos)  //para trazer as fotos por Eager Load
+                               //.Include(f => f.Photos)  //para trazer as fotos por Eager Load
                             .AsQueryable();
 
             //Paging

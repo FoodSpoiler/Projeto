@@ -14,4 +14,3 @@ namespace AgilFood.Core
         void Remove(Item item);
     }
 }
-

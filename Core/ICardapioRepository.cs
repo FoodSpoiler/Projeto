@@ -11,8 +11,8 @@ namespace AgilFood.Core
     {
         Task<List<Cardapio>> GetCardapios(int id);
         Task<Cardapio> GetCardapio(int id, bool includeRelated = true);
+        Task<Cardapio> GetCard(int id, int idFornecedor, bool includeRelated = true);
         void Add(Cardapio cardapio);
         void Remove(Cardapio cardapio);
     }
 }
-

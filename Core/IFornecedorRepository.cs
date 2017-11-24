@@ -15,4 +15,3 @@ namespace AgilFood.Core
         Task<QueryResult<Fornecedor>> GetFornecedores(FornecedorQuery queryObj);
     }
 }
-
